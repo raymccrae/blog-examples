@@ -1,6 +1,13 @@
 #!/usr/bin/python
 
-import subprocess, re
+###############################################################################
+# This script 
+#
+# Copyright (c) 2017 Raymond McCrae
+# Created 20 Dec 2017
+###############################################################################
+
+import os, subprocess, re, fnmatch, time
 
 def device_map():
 	device_map = { }
@@ -15,4 +22,30 @@ def device_map():
 	return_value = stream.wait()
 	return device_map
 
-print device_map()
+def find_files(rootdir, pattern):
+	matched_files = [ ]
+	for root, dirs, files in os.walk(rootdir):
+		for name in files:
+			if fnmatch.fnmatch(name, pattern):
+				matched_files.append(os.path.join(root, name))
+	return matched_files
+
+def get_details_for_databases(database_files):
+	devicemap = device_map()
+	device_regex = re.compile(r"/CoreSimulator/Devices/(?P<deviceid>[A-Z0-9-]+)/")
+	for file in database_files:
+		stat = os.stat(file)
+		mtime = stat.st_mtime
+		print file
+		print time.strftime("%b %d %Y %H:%M:%S", time.gmtime(mtime))
+		match = device_regex.match(file)
+		if match:
+			device_id = match.group("deviceid")
+			print device_id
+			device_name = devicemap[device_id]
+			print device_name
+
+#print device_map()
+files = find_files("/Users/raymond/Library/Developer/CoreSimulator/Devices", "CoreDataDemo.sqlite")
+get_details_for_databases(files)
+
