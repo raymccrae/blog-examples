@@ -30,20 +30,36 @@ def find_files(rootdir, pattern):
 				matched_files.append(os.path.join(root, name))
 	return matched_files
 
+def get_file_modified_times(filenames):
+	files = [ ]
+	for filename in filenames:
+		stat = os.stat(filename)
+		mtime = stat.st_mtime
+		files.append({"name" : filename, "mtime" : mtime})
+	return sorted(files, key=get_mtime, reverse=True)
+
+def get_mtime(item):
+	return item["mtime"]
+
 def get_details_for_databases(database_files):
 	devicemap = device_map()
 	device_regex = re.compile(r"/CoreSimulator/Devices/(?P<deviceid>[A-Z0-9-]+)/")
-	for file in database_files:
-		stat = os.stat(file)
-		mtime = stat.st_mtime
-		print file
-		print time.strftime("%b %d %Y %H:%M:%S", time.gmtime(mtime))
-		match = device_regex.match(file)
+	files = get_file_modified_times(database_files)
+	for file in files:
+		filename = file["name"]
+		mtime = get_mtime(file)
+		#print filename
+		timestamp = time.strftime("%b %d %Y %H:%M:%S", time.gmtime(mtime))
+		match = device_regex.search(filename)
 		if match:
+			#print "match"
 			device_id = match.group("deviceid")
-			print device_id
-			device_name = devicemap[device_id]
-			print device_name
+			#print device_id
+			if device_id in devicemap:
+				device_name = devicemap[device_id]
+			else:
+				device_name = "Unknown Device %s" % device_id
+			print timestamp + " - " + device_name
 
 #print device_map()
 files = find_files("/Users/raymond/Library/Developer/CoreSimulator/Devices", "CoreDataDemo.sqlite")
