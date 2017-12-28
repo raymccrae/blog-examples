@@ -60,6 +60,7 @@ def get_details_for_databases(database_files):
 				device_name = "Unknown Device %s" % device_id
 			index = index + 1
 			print str(index) + " : " + timestamp + " - " + device_name + " - " + os.path.basename(filename)
+			print "    [" + filename + "]"
 	print "0 : Exit"
 	return files[0:5]
 
