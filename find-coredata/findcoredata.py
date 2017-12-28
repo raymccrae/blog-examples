@@ -1,13 +1,14 @@
 #!/usr/bin/python
 
-###############################################################################
-# This script 
+#################################################################################
+# This script searches for SQLite database files within the simulator directories
+# and list the 5 most recent database files by modification time.
 #
 # Copyright (c) 2017 Raymond McCrae
 # Created 20 Dec 2017
-###############################################################################
+#################################################################################
 
-import os, subprocess, re, fnmatch, time
+import os, subprocess, re, fnmatch, time, sys
 
 def device_map():
 	device_map = { }
@@ -62,10 +63,13 @@ def get_details_for_databases(database_files):
 	print "0 : Exit"
 	return files[0:5]
 
-files = find_files("/Users/raymond/Library/Developer/CoreSimulator/Devices", "CoreDataDemo.sqlite")
-databases = get_details_for_databases(files)
-choice = int(raw_input("Enter your choice: "))
-if choice > 0:
-	database = databases[choice - 1]
-	filename = database["name"]
-	os.system("sqlite3 \"" + filename + "\"")
+homedir = os.environ['HOME']
+devicesdir = os.path.join(homedir, "Library/Developer/CoreSimulator/Devices")
+for arg in sys.argv[1:]:
+	files = find_files(devicesdir, arg)
+	databases = get_details_for_databases(files)
+	choice = int(raw_input("Enter your choice: "))
+	if choice > 0:
+		database = databases[choice - 1]
+		filename = database["name"]
+		os.system("sqlite3 \"" + filename + "\"")
