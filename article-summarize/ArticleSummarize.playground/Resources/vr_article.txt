@@ -1,0 +1,73 @@
+How Virtual Reality Affects Actual Reality
+February 11, 2018
+Picture of a man with virtual reality headset
+ View Images
+French patient Denis Duet undergoes a virtual reality therapy session called CtrlStress at the laboratory of The Institute of Movement Sciences in Marseille on January 26, 2016. Virtual reality is being used for many things, including PTSD recovery, athletic training, and education.
+
+
+Photograph by Boris Horvat, AFP, Getty
+Since tech wizard Jaron Lanier made virtual reality popular in the 1990s, many claims have been made about its transformative power. Most of these have proved to be hype and VR remained little more than a fad, popular with video gamers. But in his new book, VR: Experience On Demand, Jeremy Bailenson, founding director of the Virtual Human Interactive Lab at Stanford University, insists that VR is at last coming of age, with new applications from conservation to the treatment of PTSD.
+
+When National Geographic caught up with him by phone from Stanford, Bailenson explained how VR is now being used to raise awareness about climate change, help quarterbacks memorize plays for the NFL, and even help first 9/11 responders suffering from PTSD.
+
+When I interviewed Jaron Lanier, the pioneer of VR, two decades ago, he was ecstatic about its potential. Recently he said the digital “hive mind” threatens to lead us into “social catastrophe.” Which is right?
+
+Jaron is a great colleague of mine. He and I have published papers together and we talk a lot about VR as a tool to make people better, for collaboration and expression. The thing to remember is that VR is a medium. Just like the written word, just like video, and it all depends on what we do with it. Throughout his long, amazing career, Jaron has been someone who pushes us to use technology for good, to think about how to use avatars to make people more collaborative, to reduce prejudice, and increase productivity.
+
+One of the bold claims you make is that VR can help save the planet. Describe the thinking here, and how an experiment on the island of Ischia, in Italy, is helping combat ignorance about climate change.
+
+Climate change science is very abstract, so it’s hard for a person to fathom a world in which there are extreme weather events and higher sea levels and how it’s going to affect his or her daily life. So what we did in Ischia was take a marine site that scientists have been studying for decades, which shows how carbon dioxide is destroying coral and degrading the food web.
+
+You Might Also Like
+I can’t bring the entire world to Ischia to show how CO2 degrades ecosystems. But with VR, I can bring Ischia to people. So we produced a seven-minute journey that shows how all the oceans will look like in about 50 years, based on this one site in Ischia. Using this VR model, people get to be a scientist, explore the effects of CO2 on various species in the ecosystem and organically learn by doing.
+
+We’ve tested it in high school and college classrooms; thousands of people go through it at different museums. We have a permanent installation at the San Jose Tech Museum and we’ve brought it to the U.S. Senate, where senators and congressmen and congresswomen can experience it. I can confidently say that this simulation increases knowledge about climate change by showing them, viscerally, how it is going to affect us all.
+
+What’s the difference between watching a video of this and sticking on a headset and VR goggles?
+
+The difference centers on what psychologists call “embodied cognition,” which is, we learn by doing. For a lot of the most important learning events in your life, you actually did something; you walked somewhere or felt something. VR gives people an active, not passive, opportunity to explore a space to learn in ways that people have been learning for hundreds of thousands of years. That is, having an experience.
+
+More prosaically, you suggest VR can be used to produce a better football quarterback. Tell us how Carson Palmer used it to absorb the game’s complex plays.
+
+They call the process of quarterbacks learning plays “installation,” as if you could just download these very complicated offensive schemes. It’s hard for quarterbacks. They’ve got to review all these plays, read all the manuals. They can practice on the field—and we’re not suggesting that they stop doing that—but we demonstrated in the 2014 season that the Stanford quarterbacks were benefitting greatly from VR by improving their decision-making accuracy and reducing their reaction time. Since then, it’s a tool that has transformed lots of teams across many sports. The German national soccer team, among others, uses this in their practice quite often.
+
+Carson Palmer is one of the earliest adopters. VR gave him another tool he could use to learn the plays better. Carson had a system in his home and for just a couple minutes a day, after he’d wake up, he’d go over his plays and would mentally practice what he was going to do, as though he were actually on the field. But he was in his living room, getting extra practice.
+
+This VR Game Shows Kids in Thailand How to Make Drinkable Water
+The people of Thailand depend on the river for drinking water. But bacteria, metal, trash, and chemicals are polluting their water source. WATERisLIFE teaches kids how to combat these dangers through a revolutionary virtual reality game.
+
+What about the downsides, especially for young people, like loss of contact with the physical world, immersive porn, or ultra-violent video games?
+
+The way I think of VR for my kids is that we should use it for things that we can’t do in the real world. You should use VR to go to the moon or try becoming someone else. But you shouldn’t do things that you wouldn’t do in the real world. If there’s some heinous activity—however you define that—in the real world, you shouldn’t do it in VR.
+
+What our lab studies have shown is that, in general, the brain tends to treat a VR event in a similar way to an actual event. VR, unlike a normal video game, activates the motor cortex and the perceptual system in a similar way to real life experiences. So there’s a fundamental difference between performing an event in a traditional video game or watching a movie and doing it inside VR.
+
+On the violent side, we can talk about the desensitization that occurs from violent media. There’s a lot of literature out there in relation to TV shows and video games. But I would rather talk about skill transfer. My lab has been funded for quite some time by the U.S. military, and I’m very proud to help our soldiers become better at their jobs. The problem with VR in this context is that citizens can now download VR software that teaches them how to perform combat, how to aim a gun and do different types of operations. In other words, the same types of simulations that soldiers have are available for people to use in their daily lives. So there needs to be some thoughtful consideration for keeping soldier training in the hands of the military—and out of the hands of people like me.
+
+One of the fundamental technological problems yet to be solved is VR’s ability—or inability—to represent real people convincingly. Explain the issues, and why avatars could be the solution.
+
+We have all done video conferencing. It’s good for some activities but you would never want to have an important work meeting where intense decisions have to be made in a group setting. There are a couple of reasons for that. One is the eye contact problem. If you look at the camera on the top of your laptop, you don’t see the other person. Conversely, if you look at the other person’s image on your screen you’re not looking at the camera, and the other person is not going to see you looking at their eyes. This gets magnified when there are a lot of people in a conversation.
+
+What VR does with avatars is allow us to solve these intimacy-prohibiting computer problems. There’s a ton of work in psychology showing that very small changes in things like eye contact, body space or posture alter the way conversations flow. This secret sauce of conversation is what we call interactional synchrony. With VR we have a better shot at getting those cues rendered properly because you can control things, like the position of the body and eye contact, in a networked avatar space in a way you just can’t do with video conferences.
+
+Another positive application for VR could be treating PTSD and even Alzheimer’s. Tell us how that could work, and how a fireman traumatized by 9/11 was helped.
+
+When someone experiences a traumatic event and gets PTSD, one of the ways to treat it is something called cognitive exposure therapy, in which a psychologist brings them back to the traumatic event. Historically that’s usually been done by having the person try to imagine the event and bring them back there with words and narrative. That’s an important tool, which has worked for many people. But the problem for people who have had a trauma is that they don’t want to go back there. It’s a painful journey. So there’s a natural resistance to wanting to go back in your own mind.
+
+VR can make it easier for people to return to the traumatic event because they open their eyes and see the place and hear, and sometimes even smell the smells. For example, veterans can virtually go back to Iraq—feel like they are in that jeep, feel the vibrations from the explosions, smell the scents of Iraq.
+
+Lots of the first responders after 9/11 had psychological complications like PTSD. Dr. JoAnn Difede started building her VR treatment tool almost immediately after hearing about 9/11. She has used it to help people get better by bringing them back to that day on 9/11 in a way that feels like they are actually there again and express the emotions they were feeling during the time.
+
+The fireman I describe in the book would talk about 9/11 in a way that was academic, so he wasn’t accessing his true memories. VR brought him back there in a way he hadn’t gone to otherwise, and this helped him break out of some of the symptoms he was having from PTSD. He was able to connect better with his family members and assimilate better in society. Before the VR therapy he was able to walk a line in which he could talk about the event but not really go back there with his therapist. This allowed him to return to it psychologically and make better progress in his therapy.
+
+To my surprise, VR is also being used in my profession, journalism. Talk about the work of Nonny de la Pena.
+
+What I love about Nonny’s work is that she comes at it from her experience as a trained journalist. Bringing all the standards one would have when sourcing and triple-checking your facts, she produces these visual and auditory events to accompany the news story itself. For example, she’s been building these intense simulations of what it’s like to be on a food line in Los Angeles, or a refugee. These compelling experiences give you a perspective you wouldn’t have gotten just from reading.
+
+Proponents of VR have always said, as you do, “It will utterly change how we interact with the (real) world around us, and with other people.” It hasn’t happened yet. When will this Brave New World arrive? And what will it look like?
+
+I happen to like how we currently interact with other people and experience the world, so I may not be one of the people to make such bold claims. VR is a media tool just like any other, whether the written word or video, or any of the types of media that we use every day. Qualitatively, it’s got a different impact on how we perceive information because we’re using our bodies. It is simply not the same as going from regular resolution to HD TV, or from black and white to color videos. Because you’re using your body and it’s completely immersive, I do think it’s a big jump in the history of media. But I don’t think it’s going to change who people are. I think we will continue to be the same humans that have been on the planet for quite some time. And I, for one, am glad we will.
+
+This interview was edited for length and clarity.
+
+Simon Worrall curates Book Talk. Follow him on Twitter or at simonworrallauthor.com.
