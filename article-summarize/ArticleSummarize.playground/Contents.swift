@@ -30,14 +30,6 @@ extension NSRange {
 
 }
 
-func wordFrequencies(_ words: [String], stopwords: Set<String> = Set()) -> [String: Int] {
-    return words.reduce(into: [:], { (frequencies, word) in
-        if !stopwords.contains(word) {
-            frequencies[word, default: 0] += 1
-        }
-    })
-}
-
 class ArticleSummarizer {
 
     private struct Sentence {
@@ -96,11 +88,7 @@ class ArticleSummarizer {
         tagger.enumerateTags(in: text.nsrange,
                              scheme: .nameTypeOrLexicalClass,
                              options: options) { (tag, tokenRange, sentenceRange, _) in
-                                guard let tag = tag else {
-                                    return
-                                }
-//                                print("\(tag) - \(tokenRange) - \(sentenceRange)")
-
+                                // If we've switched to a new sentence then append the previous to the array
                                 if currentSentenceRange != sentenceRange {
                                     if let sentenceText = text[currentSentenceRange] {
                                         sentence.text = sentenceText
@@ -111,6 +99,7 @@ class ArticleSummarizer {
                                     currentSentenceRange = sentenceRange
                                 }
 
+                                // Convert to lowercase and if not a stopword the increase the word frequency.
                                 if let word = text[tokenRange]?.lowercased() {
                                     if !stopWords.contains(word) {
                                         wordFrequencies[word, default: 0] += 1
@@ -127,8 +116,13 @@ class ArticleSummarizer {
             })
         }
 
+        // Sort Sentences by ranking
         let sentencesByRanking = sentences.sorted { $0.ranking > $1.ranking }
+
+        // Select the most important sentences
         let keySentences = sentencesByRanking.prefix(numberOfSentences).sorted { $0.index > $1.index }
+
+        // Build Summary based on the most important sentences
         var summary = ""
         var firstSentence = true
         for sentence in keySentences {
