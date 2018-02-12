@@ -1,6 +1,6 @@
 //: Playground - noun: a place where people can play
 
-import UIKit
+import Cocoa
 
 extension String {
     var nsrange: NSRange {
@@ -15,25 +15,10 @@ extension String {
     }
 }
 
-extension NSRange {
-
-    init(from: NSRange, to: NSRange) {
-        let endPosition = to.location + to.length
-        self.location = from.location
-
-        if endPosition > from.location {
-            self.length = endPosition - from.location
-        } else {
-            self.length = to.length
-        }
-    }
-
-}
-
 class ArticleSummarizer {
 
     private struct Sentence {
-        var text: Substring?
+        var textRange: NSRange = NSRange(location: 0, length: 0)
         var words: [String] = []
         var index: Int = 0
         var ranking: Int = 0
@@ -47,31 +32,7 @@ class ArticleSummarizer {
         options = [.omitWhitespace, .omitPunctuation, .joinNames]
         let schemes = NSLinguisticTagger.availableTagSchemes(forLanguage: "en")
         tagger = NSLinguisticTagger(tagSchemes: schemes, options: Int(options.rawValue))
-        stopWords = ArticleSummarizer.loadStopWords(filename: "stop-words-english1")!
-    }
-
-    func sentences(from text: String) -> [Substring] {
-        var result: [Substring] = []
-        var sentenceRange = NSRange(location: 0, length: 0)
-        tagger.string = text
-        tagger.enumerateTags(in: text.nsrange,
-                                       scheme: .nameTypeOrLexicalClass, options: options) { (tag, nsrange, _, _) in
-//                                        print(tag)
-                                        if tag == NSLinguisticTag.sentenceTerminator {
-                                            sentenceRange = NSRange(from: sentenceRange, to: nsrange)
-                                            if let sentence = text[sentenceRange] {
-                                                result.append(sentence)
-                                            }
-                                            sentenceRange = NSRange(location: sentenceRange.location + sentenceRange.length, length: 0)
-                                        }
-        }
-
-        sentenceRange = NSRange(from: sentenceRange, to: text.nsrange)
-        if let sentence = text[sentenceRange] {
-            result.append(sentence)
-        }
-
-        return result
+        stopWords = ArticleSummarizer.loadStopWords(filename: "stop-words-english4")!
     }
 
     func summarize(text: String, numberOfSentences: Int) -> String {
@@ -81,22 +42,20 @@ class ArticleSummarizer {
 
         var sentences: [Sentence] = []
         var sentence = Sentence()
-        var currentSentenceRange = NSRange(location: 0, length: 0)
         var wordFrequencies: [String: Int] = [:]
 
         tagger.string = text
         tagger.enumerateTags(in: text.nsrange,
-                             scheme: .nameTypeOrLexicalClass,
+                             scheme: .nameType,
                              options: options) { (tag, tokenRange, sentenceRange, _) in
                                 // If we've switched to a new sentence then append the previous to the array
-                                if currentSentenceRange != sentenceRange {
-                                    if let sentenceText = text[currentSentenceRange] {
-                                        sentence.text = sentenceText
+                                if sentence.textRange != sentenceRange {
+                                    if sentence.textRange.length > 0 {
+                                        sentence.index = sentences.count
+                                        sentences.append(sentence)
                                     }
-                                    sentence.index = sentences.count
-                                    sentences.append(sentence)
                                     sentence = Sentence()
-                                    currentSentenceRange = sentenceRange
+                                    sentence.textRange = sentenceRange
                                 }
 
                                 // Convert to lowercase and if not a stopword the increase the word frequency.
@@ -126,7 +85,7 @@ class ArticleSummarizer {
         var summary = ""
         var firstSentence = true
         for sentence in keySentences {
-            guard let text = sentence.text else {
+            guard let text = text[sentence.textRange] else {
                 continue
             }
 
