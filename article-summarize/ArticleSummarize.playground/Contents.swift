@@ -79,7 +79,7 @@ class ArticleSummarizer {
         let sentencesByRanking = sentences.sorted { $0.ranking > $1.ranking }
 
         // Select the most important sentences
-        let keySentences = sentencesByRanking.prefix(numberOfSentences).sorted { $0.index > $1.index }
+        let keySentences = sentencesByRanking.prefix(numberOfSentences).sorted { $0.index < $1.index }
 
         // Build Summary based on the most important sentences
         var summary = ""
