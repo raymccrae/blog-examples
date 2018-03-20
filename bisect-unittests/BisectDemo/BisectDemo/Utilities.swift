@@ -11,16 +11,7 @@ import Foundation
 class Utilities {
 
     static func average(values: [Int]) -> Int {
-        var sum = 0
-        for value in values {
-            sum += value
-        }
-
-        if values.count > 0 {
-            return sum / values.count
-        } else {
-            return 0
-        }
+        return sum(values: values) / values.count
     }
 
     static func sum(values: [Int]) -> Int {
