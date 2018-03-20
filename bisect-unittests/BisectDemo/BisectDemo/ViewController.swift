@@ -24,9 +24,10 @@ class ViewController: UIViewController {
 
     func updateLabel() {
         let value = Int(slider.value)
-        let sum = Utilities.sum(values: Array(0...value))
-        let average = Utilities.average(values: Array(0...value))
-        label.text = "Value: \(value), Avergae: \(average), Sum: \(sum)"
+        let values = Utilities.sequence(value)
+        let sum = Utilities.sum(values: values)
+        let average = Utilities.average(values: values)
+        label.text = "Value: \(value), Average: \(average), Sum: \(sum)"
     }
 }
 
