@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         let values = Utilities.sequence(value)
         let sum = Utilities.sum(values: values)
         let average = Utilities.average(values: values)
-        label.text = "Value: \(value), Avergae: \(average), Sum: \(sum)"
+        label.text = "Value: \(value), Average: \(average), Sum: \(sum)"
     }
 }
 
