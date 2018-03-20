@@ -20,6 +20,10 @@ class ViewController: UIViewController {
         updateLabel()
     }
 
+    @IBAction func sliderValudChanged(_ sender: Any) {
+        updateLabel()
+    }
+
     func updateLabel() {
         let value = Int(slider.value)
         let average = Utilities.average(values: Array(0...value))
