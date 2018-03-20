@@ -22,4 +22,11 @@ class Utilities {
         return sum
     }
 
+    static func sequence(_ value: Int) -> [Int] {
+        guard value > 0 else {
+            return []
+        }
+        return Array(1...value)
+    }
+
 }
