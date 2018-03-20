@@ -23,4 +23,12 @@ class Utilities {
         }
     }
 
+    static func sum(values: [Int]) -> Int {
+        var sum = 0
+        for value in values {
+            sum += value
+        }
+        return sum
+    }
+
 }
