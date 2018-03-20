@@ -10,16 +10,20 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var label: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        let average = Utilities.average(values: [])
-        self.label.text = "\(average)"
+        updateLabel()
     }
 
-
+    func updateLabel() {
+        let value = Int(slider.value)
+        let average = Utilities.average(values: Array(0...value))
+        label.text = "Avergae: \(average)"
+    }
 }
 
