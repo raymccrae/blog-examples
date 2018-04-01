@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G1212" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Address" representedClassName="Address" syncable="YES" codeGenerationType="class"/>
+    <entity name="Contact" representedClassName="Contact" syncable="YES" codeGenerationType="class"/>
+    <entity name="ContactList" representedClassName="ContactList" syncable="YES" codeGenerationType="class"/>
+    <entity name="ContactType" representedClassName="ContactType" syncable="YES" codeGenerationType="class"/>
+    <entity name="Telephone" representedClassName="Telephone" syncable="YES" codeGenerationType="class"/>
+    <configuration name="PersonalData">
+        <memberEntity name="Address"/>
+        <memberEntity name="Contact"/>
+        <memberEntity name="ContactList"/>
+        <memberEntity name="Telephone"/>
+    </configuration>
+    <configuration name="ReferenceData">
+        <memberEntity name="ContactType"/>
+    </configuration>
+    <elements>
+        <element name="Contact" positionX="-63" positionY="-18" width="128" height="45"/>
+        <element name="Telephone" positionX="-54" positionY="-9" width="128" height="45"/>
+        <element name="Address" positionX="-36" positionY="9" width="128" height="45"/>
+        <element name="ContactList" positionX="-18" positionY="27" width="128" height="45"/>
+        <element name="ContactType" positionX="0" positionY="45" width="128" height="45"/>
+    </elements>
+</model>
