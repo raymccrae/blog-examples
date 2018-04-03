@@ -1,6 +1,15 @@
 import Foundation
 import CoreData
 
+extension NSPersistentStore {
+
+    /// Determines if the store supports batch operations, currently only SQLite is supported.
+    var isBatchOperationSupported: Bool {
+        return type == NSSQLiteStoreType
+    }
+
+}
+
 extension NSManagedObjectModel {
 
     /**
@@ -14,15 +23,6 @@ extension NSManagedObjectModel {
             let entitiesForConfig = entities(forConfigurationName: configuration)
             return entitiesForConfig?.contains(entity) ?? false
         }
-    }
-
-}
-
-extension NSPersistentStore {
-
-    /// Determines if the store supports batch operations, currently only SQLite is support.
-    var isBatchOperationSupported: Bool {
-        return self.type == NSSQLiteStoreType
     }
 
 }
@@ -49,7 +49,13 @@ extension NSPersistentStoreCoordinator {
 extension NSEntityDescription {
 
     /**
-     Determines if the recieving
+     Determines if the recieving entity is assocated with persistent stores that support
+     batch operations (see NSPersistentStore.isBatchOperationSupported). Since an entity
+     can be assocated with multiple persistent stores, this method will return true only
+     if all persistent stores for the recieving entity support batch operations.
+
+     - parameter coordinator: Persistent Store Coordinator
+     - returns: true if batch operations are supported for the recieving entity, otherwise false.
      */
     func isBatchOperationSupported(for coordinator: NSPersistentStoreCoordinator) -> Bool {
         let stores = coordinator.persistentStores(for: self)
@@ -59,8 +65,17 @@ extension NSEntityDescription {
         return !stores.contains(where: { !$0.isBatchOperationSupported })
     }
 
+    /**
+     Determines if the recieving entity is assocated with persistent stores that support
+     batch operations (see NSPersistentStore.isBatchOperationSupported). Since an entity
+     can be assocated with multiple persistent stores, this method will return true only
+     if all persistent stores for the recieving entity support batch operations.
+
+     - parameter context: Managed Object Context
+     - returns: true if batch operations are supported for the recieving entity, otherwise false.
+     */
     func isBatchOperationSupported(for context: NSManagedObjectContext) -> Bool {
-        guard let coordinator = context.persistentStoreCoordinator else {
+        guard let coordinator = context.rootPersistentStoreCoordinator else {
             return false
         }
         return isBatchOperationSupported(for: coordinator)
@@ -69,6 +84,23 @@ extension NSEntityDescription {
 }
 
 extension NSManagedObjectContext {
+
+    /**
+     Fetch the root persistent store coordinator of the receiver. This method will follow the
+     parent chain of managed object contexts until it finds the persistent store coordinator
+     at the top level.
+
+     - returns: The persistent store coordinator at the top level of the MOC parent chain.
+     */
+    var rootPersistentStoreCoordinator: NSPersistentStoreCoordinator? {
+        if let coordinator = persistentStoreCoordinator {
+            return coordinator
+        } else if let parent = parent {
+            return parent.rootPersistentStoreCoordinator
+        } else {
+            return nil
+        }
+    }
 
     /**
      Deterimes if the receiver will automatically merge changes from the store coordinator.
@@ -263,7 +295,10 @@ extension NSManagedObject {
 
     // MARK:- Merge Methods
 
-    private static func mergeBatchChanges(batchOperationSupported: Bool, key: String, objectIDs: [NSManagedObjectID], into contexts: [NSManagedObjectContext]) {
+    private static func mergeBatchChanges(batchOperationSupported: Bool,
+                                          key: String,
+                                          objectIDs: [NSManagedObjectID],
+                                          into contexts: [NSManagedObjectContext]) {
         guard !objectIDs.isEmpty else {
             return
         }
