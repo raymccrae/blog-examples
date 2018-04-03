@@ -93,13 +93,7 @@ extension NSManagedObjectContext {
      - returns: The persistent store coordinator at the top level of the MOC parent chain.
      */
     var rootPersistentStoreCoordinator: NSPersistentStoreCoordinator? {
-        if let coordinator = persistentStoreCoordinator {
-            return coordinator
-        } else if let parent = parent {
-            return parent.rootPersistentStoreCoordinator
-        } else {
-            return nil
-        }
+        return persistentStoreCoordinator ?? parent?.rootPersistentStoreCoordinator
     }
 
     /**
@@ -146,12 +140,27 @@ extension NSManagedObjectContext {
 
 extension NSManagedObject {
 
+    /**
+     Determines if the reciever supports batch operation.
+
+     - parameter context: Managed Object Context.
+     - returns: true if reciever supports batch operation, otherwise false.
+     */
     static func isBatchOperationSupported(for context: NSManagedObjectContext) -> Bool {
         return entity().isBatchOperationSupported(for: context)
     }
 
     // MARK: - Delete Methods
 
+    /**
+     Deletes all managed objects that match the given predicate within the managed object
+     context.
+
+     - parameter predicate: The predicate that indicates the objects to delete.
+     - parameter context: The managed object context.
+     - parameter includesSubentities: If true then matching subentities will be deleted.
+     - returns: An array of NSManagedObjectIDs of the object that were deleted.
+     */
     @discardableResult
     static func delete(where predicate: NSPredicate?,
                        into context: NSManagedObjectContext,
@@ -170,6 +179,15 @@ extension NSManagedObject {
         return objectIDs
     }
 
+    /**
+     Executes a batch delete operation (NSBatchDeleteRequest) where supported, or performs
+     a conventional delete if batch operation are not supported.
+
+     - parameter predicate: The predicate that indicates the objects to delete.
+     - parameter persistentStoreCoordinator: The persistent store coordinator.
+     - parameter contexts: The managed object contexts to merge delete changes to.
+     - parameter includesSubentities: If true then matching subentities will be deleted.
+     */
     static func batchDelete(where predicate: NSPredicate?,
                             on persistentStoreCoordinator: NSPersistentStoreCoordinator,
                             into contexts: [NSManagedObjectContext],
