@@ -3,8 +3,8 @@ import CoreData
 
 extension NSPersistentStore {
 
-    /// Determines if the store supports batch operations, currently only SQLite is supported.
-    var isBatchOperationSupported: Bool {
+    /// Determines if the store supports batch request, currently only SQLite is supported.
+    var isBatchRequestSupported: Bool {
         return type == NSSQLiteStoreType
     }
 
@@ -50,35 +50,35 @@ extension NSEntityDescription {
 
     /**
      Determines if the recieving entity is assocated with persistent stores that support
-     batch operations (see NSPersistentStore.isBatchOperationSupported). Since an entity
+     batch requests (see NSPersistentStore.isBatchRequestSupported). Since an entity
      can be assocated with multiple persistent stores, this method will return true only
-     if all persistent stores for the recieving entity support batch operations.
+     if all persistent stores for the recieving entity support batch requests.
 
      - parameter coordinator: Persistent Store Coordinator
-     - returns: true if batch operations are supported for the recieving entity, otherwise false.
+     - returns: true if batch request are supported for the recieving entity, otherwise false.
      */
-    func isBatchOperationSupported(for coordinator: NSPersistentStoreCoordinator) -> Bool {
+    func isBatchRequestSupported(for coordinator: NSPersistentStoreCoordinator) -> Bool {
         let stores = coordinator.persistentStores(for: self)
         guard !stores.isEmpty else {
             return false
         }
-        return !stores.contains(where: { !$0.isBatchOperationSupported })
+        return !stores.contains(where: { !$0.isBatchRequestSupported })
     }
 
     /**
      Determines if the recieving entity is assocated with persistent stores that support
-     batch operations (see NSPersistentStore.isBatchOperationSupported). Since an entity
+     batch requests (see NSPersistentStore.isBatchRequestSupported). Since an entity
      can be assocated with multiple persistent stores, this method will return true only
-     if all persistent stores for the recieving entity support batch operations.
+     if all persistent stores for the recieving entity support batch requests.
 
      - parameter context: Managed Object Context
-     - returns: true if batch operations are supported for the recieving entity, otherwise false.
+     - returns: true if batch requests are supported for the recieving entity, otherwise false.
      */
-    func isBatchOperationSupported(for context: NSManagedObjectContext) -> Bool {
+    func isBatchRequestSupported(for context: NSManagedObjectContext) -> Bool {
         guard let coordinator = context.rootPersistentStoreCoordinator else {
             return false
         }
-        return isBatchOperationSupported(for: coordinator)
+        return isBatchRequestSupported(for: coordinator)
     }
 
 }
@@ -141,13 +141,13 @@ extension NSManagedObjectContext {
 extension NSManagedObject {
 
     /**
-     Determines if the reciever supports batch operation.
+     Determines if the reciever supports batch requests.
 
      - parameter context: Managed Object Context.
-     - returns: true if reciever supports batch operation, otherwise false.
+     - returns: true if reciever supports batch requests, otherwise false.
      */
-    static func isBatchOperationSupported(for context: NSManagedObjectContext) -> Bool {
-        return entity().isBatchOperationSupported(for: context)
+    static func isBatchRequestSupported(for context: NSManagedObjectContext) -> Bool {
+        return entity().isBatchRequestSupported(for: context)
     }
 
     // MARK: - Delete Methods
@@ -180,8 +180,8 @@ extension NSManagedObject {
     }
 
     /**
-     Executes a batch delete operation (NSBatchDeleteRequest) where supported, or performs
-     a conventional delete if batch operation are not supported.
+     Executes a batch delete request (NSBatchDeleteRequest) where supported, or performs
+     a conventional delete if batch requests are not supported.
 
      - parameter predicate: The predicate that indicates the objects to delete.
      - parameter persistentStoreCoordinator: The persistent store coordinator.
@@ -194,10 +194,10 @@ extension NSManagedObject {
                             includesSubentities: Bool = true) throws {
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = persistentStoreCoordinator
-        let batchOperationSupported = isBatchOperationSupported(for: context)
+        let batchRequestSupported = isBatchRequestSupported(for: context)
 
         var deletedObjectIDs: [NSManagedObjectID] = []
-        if batchOperationSupported {
+        if batchRequestSupported {
             try context.performAndWait {
                 deletedObjectIDs = try executeBatchDelete(where: predicate,
                                                           into: context,
@@ -213,7 +213,7 @@ extension NSManagedObject {
         }
 
         // Merge changes to other contexts.
-        mergeBatchChanges(batchOperationSupported: batchOperationSupported,
+        mergeBatchChanges(batchRequestSupported: batchRequestSupported,
                           key: NSDeletedObjectsKey,
                           objectIDs: deletedObjectIDs,
                           into: contexts)
@@ -266,10 +266,10 @@ extension NSManagedObject {
                             includesSubentities: Bool = true) throws {
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = persistentStoreCoordinator
-        let batchOperationSupported = isBatchOperationSupported(for: context)
+        let batchRequestSupported = isBatchRequestSupported(for: context)
 
         var updatedObjectIDs: [NSManagedObjectID] = []
-        if batchOperationSupported {
+        if batchRequestSupported {
             try context.performAndWait {
                 updatedObjectIDs = try executeBatchUpdate(set: keyedValues,
                                                           where: predicate,
@@ -287,7 +287,7 @@ extension NSManagedObject {
         }
 
         // Merge changes to other contexts.
-        mergeBatchChanges(batchOperationSupported: batchOperationSupported,
+        mergeBatchChanges(batchRequestSupported: batchRequestSupported,
                           key: NSUpdatedObjectsKey,
                           objectIDs: updatedObjectIDs,
                           into: contexts)
@@ -313,7 +313,7 @@ extension NSManagedObject {
 
     // MARK:- Merge Methods
 
-    private static func mergeBatchChanges(batchOperationSupported: Bool,
+    private static func mergeBatchChanges(batchRequestSupported: Bool,
                                           key: String,
                                           objectIDs: [NSManagedObjectID],
                                           into contexts: [NSManagedObjectContext]) {
@@ -322,7 +322,7 @@ extension NSManagedObject {
         }
         let changes =  [key: objectIDs]
         let mergeToContexts: [NSManagedObjectContext]
-        if batchOperationSupported {
+        if batchRequestSupported {
             mergeToContexts = contexts
         } else { // if we did not use a batch request then we can filter out the mocs that will auto update
             mergeToContexts = contexts.filter { !$0.automaticallyMergesChangesFromStoreCoordinator }
