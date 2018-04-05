@@ -119,11 +119,11 @@ extension NSManagedObjectContext {
     }
 
     /**
-     Wraps the regular perform method, but allows the block to throw. Error are propogated back to the caller.
+     Wraps the regular performAndWait method, but allows the block to throw. Error are propogated back to the caller.
      */
-    func perform(_ block: @escaping () throws -> Swift.Void) throws {
+    func performAndWait(_ block: () throws -> Swift.Void) throws {
         var blockError: Error? = nil
-        perform {
+        performAndWait {
             do {
                 try block()
             } catch {
@@ -198,13 +198,13 @@ extension NSManagedObject {
 
         var deletedObjectIDs: [NSManagedObjectID] = []
         if batchOperationSupported {
-            try context.perform {
+            try context.performAndWait {
                 deletedObjectIDs = try executeBatchDelete(where: predicate,
                                                           into: context,
                                                           includesSubentities: includesSubentities)
             }
         } else { // else batch delete is not supported, fall back to regular delete
-            try context.perform {
+            try context.performAndWait {
                 deletedObjectIDs = try delete(where: predicate,
                                               into: context,
                                               includesSubentities: includesSubentities)
@@ -270,14 +270,14 @@ extension NSManagedObject {
 
         var updatedObjectIDs: [NSManagedObjectID] = []
         if batchOperationSupported {
-            try context.perform {
+            try context.performAndWait {
                 updatedObjectIDs = try executeBatchUpdate(set: keyedValues,
                                                           where: predicate,
                                                           into: context,
                                                           includesSubentities: includesSubentities)
             }
         } else { // else batch delete is not supported, fall back to regular delete
-            try context.perform {
+            try context.performAndWait {
                 updatedObjectIDs = try update(set: keyedValues,
                                               where: predicate,
                                               into: context,
